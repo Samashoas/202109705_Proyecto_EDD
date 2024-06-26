@@ -1,0 +1,5 @@
+C:/Users/jpsam/OneDrive/Escritorio/Uni/C++/202109705_Proyecto_EDD/cmake-build-debug/CMakeFiles/202109705_Proyecto_EDD.dir
+C:/Users/jpsam/OneDrive/Escritorio/Uni/C++/202109705_Proyecto_EDD/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/jpsam/OneDrive/Escritorio/Uni/C++/202109705_Proyecto_EDD/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/jpsam/OneDrive/Escritorio/Uni/C++/202109705_Proyecto_EDD/cmake-build-debug/_deps/json-build/CMakeFiles/edit_cache.dir
+C:/Users/jpsam/OneDrive/Escritorio/Uni/C++/202109705_Proyecto_EDD/cmake-build-debug/_deps/json-build/CMakeFiles/rebuild_cache.dir
