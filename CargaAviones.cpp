@@ -3,6 +3,7 @@
 #include <iostream>
 #include "CircularDobleDis.h"
 #include "CircularDobleMan.h"
+#include "Btree.h"
 
 using nlohmann::json;
 
@@ -24,6 +25,8 @@ void CargaAviones::cargarDesdeArchivo(std::string nombre_archivo) {
     json j;
     archivo >> j;
 
+    BTree Arbol_Aviones(5);
+
     ListaCircularDis ListaAD;
     ListaCircularMan ListaAM;
 
@@ -40,6 +43,7 @@ void CargaAviones::cargarDesdeArchivo(std::string nombre_archivo) {
         avion.estado = item["estado"];
 
         if(avion.estado == "Disponible") {
+            Arbol_Aviones.insert(avion);
             ListaAD.insertarFinal(avion);
             std::cout << " " << std::endl;
             std::cout << "Avion disponible insertado" << std::endl;
@@ -58,6 +62,8 @@ void CargaAviones::cargarDesdeArchivo(std::string nombre_archivo) {
     std::cout << "\nLista de aviones disponibles:\n";
     ListaAD.visualizarLista();
     ListaAD.generarReporte();
+    std::cout << "Traversal del arbol B de aviones disponibles:\n";
+    Arbol_Aviones.traverse();
     std::cout << "\nLista de aviones en mantenimiento:\n";
     ListaAM.visualizarLista();
     ListaAM.generarReporte();

@@ -1,6 +1,6 @@
 digraph G { rankdir=LR; node [shape=oval];
-node0 [label="A106"];
-node1 [label="A108"];
+node0 [label="N13579"];
+node1 [label="N24680"];
 node0 -> node1;
 node1 -> node0;
 node1 -> node0;
