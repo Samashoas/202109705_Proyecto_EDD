@@ -1,0 +1,11 @@
+digraph G { rankdir=LR; node [shape=oval];
+node0 [label="N12345"];
+node1 [label="N54321"];
+node2 [label="N67890"];
+node0 -> node1;
+node1 -> node0;
+node1 -> node2;
+node2 -> node1;
+node2 -> node0;
+node0 -> node2;
+ }

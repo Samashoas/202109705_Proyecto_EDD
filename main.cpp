@@ -1,10 +1,12 @@
 #include <iostream>
+#include "CargaAviones.h"
+#include "CargaComandos.h"
 using  namespace std;
 
 
 void opcion1() {
     //CargaAviones::OpcionesAviones();
-    std::cout << "Opcion 1" << std::endl;
+    CargaAviones::OpcionesAviones();
 }
 
 void opcion2() {
@@ -20,7 +22,8 @@ void opcion3() {
 }
 
 void opcion4() {
-    std::cout << "Opcion 4" << std::endl;
+    CargaComandos comandos;
+    comandos.LeerComandos();
 }
 
 void opcion5() {
@@ -29,6 +32,10 @@ void opcion5() {
 
 void opcion6() {
     std::cout << "Opcion 6" << std::endl;
+}
+
+void opcion7() {
+    std::cout << "Opcion 7" << std::endl;
 }
 
 
@@ -42,10 +49,11 @@ int main() {
         cout << "| 1. Carga de aviones         |" << endl;
         cout << "* 2. Carga de pilotos         *" << endl;
         cout << "| 3. Carga de rutas           |" << endl;
-        cout << "* 4. Consultar hora de vuelo  *" << endl;
-        cout << "| 5. Recomendar ruta          |" << endl;
-        cout << "* 6. Visualizar reportes      *" << endl;
-        cout << "|-------- 7.Salir ------------|" << endl;
+        cout << "* 4. Carga de comandos        *" << endl;
+        cout << "| 5. Consultar hora de vuelo  |" << endl;
+        cout << "* 6. Recomendar ruta          *" << endl;
+        cout << "| 7. Visualizar reportes      |" << endl;
+        cout << "*-------- 8.Salir ------------*" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
@@ -69,6 +77,9 @@ int main() {
                 opcion6();
             break;
             case 7:
+                opcion6();
+            break;
+            case 8:
                 cout << "Adios!" << endl;
                 salir = true;
             break;
