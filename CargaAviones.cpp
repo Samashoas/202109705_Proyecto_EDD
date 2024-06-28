@@ -1,7 +1,6 @@
 #include "CargaAviones.h"
 #include <fstream>
 #include <iostream>
-#include "CircularDobleDis.h"
 #include "CircularDobleMan.h"
 #include "Btree.h"
 
@@ -25,9 +24,8 @@ void CargaAviones::cargarDesdeArchivo(std::string nombre_archivo) {
     json j;
     archivo >> j;
 
-    BTree Arbol_Aviones(5);
+    BTree Arbol_Aviones(3);
 
-    ListaCircularDis ListaAD;
     ListaCircularMan ListaAM;
 
     for (const auto& item : j) {
@@ -35,16 +33,13 @@ void CargaAviones::cargarDesdeArchivo(std::string nombre_archivo) {
         avion.vuelo = item["vuelo"];
         avion.numero_de_registro = item["numero_de_registro"];
         avion.modelo = item["modelo"];
-        avion.fabricante = item["fabricante"];
-        avion.ano_fabricacion = item["ano_fabricacion"];
         avion.capacidad = item["capacidad"];
-        avion.peso_max_despegue = item["peso_max_despegue"];
         avion.aerolinea = item["aerolinea"];
+        avion.ciudad_destino = item["ciudad_destino"];
         avion.estado = item["estado"];
 
         if(avion.estado == "Disponible") {
             Arbol_Aviones.insert(avion);
-            ListaAD.insertarFinal(avion);
             std::cout << " " << std::endl;
             std::cout << "Avion disponible insertado" << std::endl;
         }else if(avion.estado == "Mantenimiento") {
@@ -59,11 +54,9 @@ void CargaAviones::cargarDesdeArchivo(std::string nombre_archivo) {
         addAvion(avion);
     }
 
-    std::cout << "\nLista de aviones disponibles:\n";
-    ListaAD.visualizarLista();
-    ListaAD.generarReporte();
     std::cout << "Traversal del arbol B de aviones disponibles:\n";
     Arbol_Aviones.traverse();
+    Arbol_Aviones.visualizar();
     std::cout << "\nLista de aviones en mantenimiento:\n";
     ListaAM.visualizarLista();
     ListaAM.generarReporte();
@@ -84,11 +77,9 @@ void CargaAviones::OpcionesAviones() {
             std::cout << "Vuelo: " << avion.vuelo << std::endl;
             std::cout << "Numero de registro: " << avion.numero_de_registro << std::endl;
             std::cout << "Modelo: " << avion.modelo << std::endl;
-            std::cout << "Fabricante: " << avion.fabricante << std::endl;
-            std::cout << "Ano de fabricacion: " << avion.ano_fabricacion << std::endl;
             std::cout << "Capacidad: " << avion.capacidad << std::endl;
-            std::cout << "Peso maximo de despegue: " << avion.peso_max_despegue << std::endl;
             std::cout << "Aerolinea: " << avion.aerolinea << std::endl;
+            std::cout << "Ciudad destino: " << avion.ciudad_destino << std::endl;
             std::cout << "Estado: " << avion.estado << std::endl;
             std::cout << "---------------------------------" << std::endl;
         }else if(avion.estado == "Mantenimiento") {
@@ -96,11 +87,9 @@ void CargaAviones::OpcionesAviones() {
             std::cout << "Vuelo: " << avion.vuelo << std::endl;
             std::cout << "Numero de registro: " << avion.numero_de_registro << std::endl;
             std::cout << "Modelo: " << avion.modelo << std::endl;
-            std::cout << "Fabricante: " << avion.fabricante << std::endl;
-            std::cout << "Ano de fabricacion: " << avion.ano_fabricacion << std::endl;
             std::cout << "Capacidad: " << avion.capacidad << std::endl;
-            std::cout << "Peso maximo de despegue: " << avion.peso_max_despegue << std::endl;
             std::cout << "Aerolinea: " << avion.aerolinea << std::endl;
+            std::cout << "Ciudad destino: " << avion.ciudad_destino << std::endl;
             std::cout << "Estado: " << avion.estado << std::endl;
             std::cout << "---------------------------------" << std::endl;
         }else {

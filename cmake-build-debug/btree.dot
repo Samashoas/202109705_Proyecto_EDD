@@ -1,0 +1,12 @@
+digraph G {
+node [shape=record];
+node0 [label="<f0> N70003 | <f1> N70006 | <f2> N70009"];
+node1 [label="<f0> N50013 | <f1> N70001 | <f2> N70002"];
+node0:f0 -> node1;
+node2 [label="<f0> N70004 | <f1> N70005"];
+node0:f1 -> node2;
+node3 [label="<f0> N70007 | <f1> N70008"];
+node0:f2 -> node3;
+node4 [label="<f0> N70010 | <f1> N70011 | <f2> N70012 | <f3> N70014"];
+node0:f3 -> node4;
+}

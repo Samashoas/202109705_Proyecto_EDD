@@ -17,7 +17,6 @@ add_executable(202109705_Proyecto_EDD main.cpp
         MiVector.h
         MyArrasy.h
         nodoAv.h
-        CircularDobleDis.h
         CircularDobleMan.h
         CargaComandos.cpp
         CargaComandos.h

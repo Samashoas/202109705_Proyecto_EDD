@@ -1,14 +1,9 @@
-//
-// Created by jpsam on 27/06/2024.
-//
-
 #ifndef BTREE_H
 #define BTREE_H
 #include <iostream>
-using namespace std;
-
-#include <iostream>
+#include <fstream>
 #include <vector>
+#include <cstdlib>
 #include "CargaAviones.h"
 
 class BTreeNode {
@@ -22,13 +17,13 @@ public:
     void insertNonFull(const Avion& avion, int t);
     void splitChild(int i, BTreeNode* y, int t);
     void traverse();
+    void generateGraphviz(std::ostream& out, int& index) const;
 
-    BTreeNode* search(const std::string& vuelo);
+    BTreeNode* search(const std::string& NV);
 
     friend class BTree;
 };
 
-// Definición del árbol B
 class BTree {
 public:
     BTreeNode* root; // Puntero a la raíz
@@ -40,11 +35,31 @@ public:
         if (root != nullptr) root->traverse();
     }
 
-    BTreeNode* search(const std::string& vuelo) {
-        return (root == nullptr) ? nullptr : root->search(vuelo);
+    BTreeNode* search(const std::string& NV) {
+        return (root == nullptr) ? nullptr : root->search(NV);
     }
 
     void insert(const Avion& avion);
+
+    void generateGraphviz(std::ostream& out) const {
+        out << "digraph G {\n";
+        out << "node [shape=record];\n";
+        int index = 0;
+        if (root != nullptr) root->generateGraphviz(out, index);
+        out << "}\n";
+    }
+
+    void visualizar() const {
+        std::ofstream outFile("btree.dot");
+        if (outFile.is_open()) {
+            generateGraphviz(outFile);
+            outFile.close();
+            std::system("dot -Tpng btree.dot -o btree.png");
+            std::system("btree.png");
+        } else {
+            std::cerr << "No se pudo abrir el archivo para escribir\n";
+        }
+    }
 };
 
 BTreeNode::BTreeNode(bool leaf) {
@@ -65,13 +80,13 @@ void BTreeNode::traverse() {
     }
 }
 
-BTreeNode* BTreeNode::search(const std::string& vuelo) {
+BTreeNode* BTreeNode::search(const std::string& NV) {
     int i = 0;
-    while (i < keys.size() && vuelo > keys[i].vuelo) {
+    while (i < keys.size() && NV > keys[i].numero_de_registro) {
         i++;
     }
 
-    if (i < keys.size() && keys[i].vuelo == vuelo) {
+    if (i < keys.size() && keys[i].numero_de_registro == NV) {
         return this;
     }
 
@@ -79,7 +94,7 @@ BTreeNode* BTreeNode::search(const std::string& vuelo) {
         return nullptr;
     }
 
-    return children[i]->search(vuelo);
+    return children[i]->search(NV);
 }
 
 BTree::BTree(int t) {
@@ -97,7 +112,7 @@ void BTree::insert(const Avion& avion) {
             s->children.push_back(root);
             s->splitChild(0, root, t);
             int i = 0;
-            if (s->keys[0].vuelo < avion.vuelo) {
+            if (s->keys[0].numero_de_registro < avion.numero_de_registro) {
                 i++;
             }
             s->children[i]->insertNonFull(avion, t);
@@ -112,22 +127,23 @@ void BTreeNode::insertNonFull(const Avion& avion, int t) {
     int i = keys.size() - 1;
     if (isLeaf) {
         keys.resize(keys.size() + 1);
-        while (i >= 0 && keys[i].vuelo > avion.vuelo) {
+        while (i >= 0 && keys[i].numero_de_registro > avion.numero_de_registro) {
             keys[i + 1] = keys[i];
             i--;
         }
         keys[i + 1] = avion;
     } else {
-        while (i >= 0 && keys[i].vuelo > avion.vuelo) {
+        while (i >= 0 && keys[i].numero_de_registro > avion.numero_de_registro) {
             i--;
         }
-        if (children[i + 1]->keys.size() == 2 * t - 1) {
-            splitChild(i + 1, children[i + 1], t);
-            if (keys[i + 1].vuelo < avion.vuelo) {
+        i++;
+        if (children[i]->keys.size() == 2 * t - 1) {
+            splitChild(i, children[i], t);
+            if (keys[i].numero_de_registro < avion.numero_de_registro) {
                 i++;
             }
         }
-        children[i + 1]->insertNonFull(avion, t);
+        children[i]->insertNonFull(avion, t);
     }
 }
 
@@ -147,11 +163,29 @@ void BTreeNode::splitChild(int i, BTreeNode* y, int t) {
     }
 
     y->keys.resize(t - 1);
+
     children.insert(children.begin() + i + 1, z);
     keys.insert(keys.begin() + i, y->keys[t - 1]);
 
     y->keys.resize(t - 1);
 }
 
+void BTreeNode::generateGraphviz(std::ostream& out, int& index) const {
+    int current_index = index++;
+    out << "node" << current_index << " [label=\"";
+    for (int i = 0; i < keys.size(); ++i) {
+        if (i > 0) out << " | ";
+        out << "<f" << i << "> " << keys[i].numero_de_registro;
+    }
+    out << "\"];\n";
 
-#endif //BTREE_H
+    for (int i = 0; i < children.size(); ++i) {
+        if (!isLeaf) {
+            int child_index = index;
+            children[i]->generateGraphviz(out, index);
+            out << "node" << current_index << ":f" << i << " -> node" << child_index << ";\n";
+        }
+    }
+}
+
+#endif // BTREE_H
