@@ -25,6 +25,7 @@ public:
     ~CargaAviones();
     void cargarDesdeArchivo(std::string nombre_archivo);
     static void OpcionesAviones();
+    static void reportePrueba();
     void addAvion(const Avion& avion);
 
 private:

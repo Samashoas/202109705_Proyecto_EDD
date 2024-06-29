@@ -1,6 +1,7 @@
 #include <iostream>
 #include "CargaAviones.h"
 #include "CargaComandos.h"
+#include "CargaPilotos.h"
 using  namespace std;
 
 
@@ -10,8 +11,7 @@ void opcion1() {
 }
 
 void opcion2() {
-    //CargaPasajeros::OpcionesPasajeros();
-    std::cout << "Opcion 2" << std::endl;
+    CargaPilotos::OpcionesPilotos();
 }
 
 void opcion3() {

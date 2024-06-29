@@ -14,6 +14,9 @@ CargaAviones::~CargaAviones() {
     // Destructor implementation
 }
 
+ListaCircularMan ListaAM;
+BTree Arbol_Aviones(3);
+
 void CargaAviones::cargarDesdeArchivo(std::string nombre_archivo) {
     std::ifstream archivo(nombre_archivo);
     if(!archivo.is_open()){
@@ -23,10 +26,6 @@ void CargaAviones::cargarDesdeArchivo(std::string nombre_archivo) {
 
     json j;
     archivo >> j;
-
-    BTree Arbol_Aviones(3);
-
-    ListaCircularMan ListaAM;
 
     for (const auto& item : j) {
         Avion avion;
@@ -96,6 +95,10 @@ void CargaAviones::OpcionesAviones() {
             std::cout << "Estado no valido" << std::endl;
         }
     }
+}
+
+void CargaAviones::reportePrueba() {
+    Arbol_Aviones.visualizar();
 }
 
 void CargaAviones::addAvion(const Avion& avion) {
