@@ -63,4 +63,7 @@ void CargaPilotos::OpcionesPilotos() {
         std::cout << "Tipo de licencia: " << piloto.tipo_de_licencia << std::endl;
         std::cout << "--------------------------------" << std::endl;
     }
+    arbol_bb.imprimirInorden();
+    arbol_bb.imprimirPreorden();
+    arbol_bb.imprimirPostorden();
 }

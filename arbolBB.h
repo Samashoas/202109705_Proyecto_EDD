@@ -24,8 +24,14 @@ public:
     void buscar(Piloto dato);
     Piloto buscarNodo(Piloto dato, NodoPilotos* nodoPtr);
 
-    void Recorrido();
-    void Recorrido(NodoPilotos* nodoPtr);
+    //void Recorrido();
+    void RecorridoPreorden(NodoPilotos* nodoPtr);
+    void RecorridoInorden(NodoPilotos* nodoPtr);
+    void RecorridoPostorden(NodoPilotos* nodoPtr);
+
+    void imprimirPreorden();
+    void imprimirInorden();
+    void imprimirPostorden();
 
     void generarReporte();
     void imprimirNodo(NodoPilotos* nodoPtr);
@@ -96,29 +102,55 @@ Piloto ArbolBB::buscarNodo(Piloto dato, NodoPilotos* nodoPtr)
     }
 
 }
-
-void ArbolBB::Recorrido()
+void ArbolBB::imprimirPreorden()
 {
-    Recorrido(raiz);
+    cout << "Recorrido Preorden: " << endl;
+    RecorridoPreorden(raiz);
+    cout << endl;
 }
 
-void ArbolBB::Recorrido(NodoPilotos* nodoPtr)
+void ArbolBB::imprimirInorden()
+{
+    cout << "Recorrido Inorden: " << endl;
+    RecorridoInorden(raiz);
+    cout << endl;
+}
+
+void ArbolBB::imprimirPostorden()
+{
+    cout << "Recorrido Postorden: " << endl;
+    RecorridoPostorden(raiz);
+    cout << endl;
+}
+
+void ArbolBB::RecorridoPreorden(NodoPilotos* nodoPtr)
 {
     if (nodoPtr != nullptr)
     {
-        //PREORDEN
         cout << nodoPtr->getPiloto().horas_de_vuelo << endl;
-        Recorrido(nodoPtr->getSiguiente());
-        Recorrido(nodoPtr->getAnterior());
-
-        //INORDEN
-        /*Recorrido(nodoPtr->getSiguiente());
-        cout << nodoPtr->getPiloto().numero_de_id << endl;
-        Recorrido(nodoPtr->getAnterior());*/
-
-        //POSTORDEN
+        RecorridoPreorden(nodoPtr->getSiguiente());
+        RecorridoPreorden(nodoPtr->getAnterior());
     }
+}
 
+void ArbolBB::RecorridoInorden(NodoPilotos* nodoPtr)
+{
+    if (nodoPtr != nullptr)
+    {
+        RecorridoInorden(nodoPtr->getSiguiente());
+        cout << nodoPtr->getPiloto().horas_de_vuelo << endl;
+        RecorridoInorden(nodoPtr->getAnterior());
+    }
+}
+
+void ArbolBB::RecorridoPostorden(NodoPilotos* nodoPtr)
+{
+    if (nodoPtr != nullptr)
+    {
+        RecorridoPostorden(nodoPtr->getSiguiente());
+        RecorridoPostorden(nodoPtr->getAnterior());
+        cout << nodoPtr->getPiloto().horas_de_vuelo << endl;
+    }
 }
 
 void ArbolBB::generarReporte()
