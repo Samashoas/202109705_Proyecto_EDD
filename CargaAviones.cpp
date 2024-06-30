@@ -97,8 +97,12 @@ void CargaAviones::OpcionesAviones() {
     }
 }
 
-void CargaAviones::reportePrueba() {
+void CargaAviones::ArbolAviones() {
     Arbol_Aviones.visualizar();
+}
+
+void CargaAviones::ListaAviones() {
+    ListaAM.generarReporte();
 }
 
 void CargaAviones::addAvion(const Avion& avion) {

@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include "arbolBB.h"
+#include "THash.h"
 
 using nlohmann::json;
 
@@ -16,7 +17,7 @@ CargaPilotos::CargaPilotos() {
 CargaPilotos::~CargaPilotos() {
     // Destructor implementation
 }
-
+TablaHash THash(18);
 ArbolBB arbol_bb;
 void CargaPilotos::cargarDesdeArchivo(std::string nombre_archivo) {
     std::ifstream archivo(nombre_archivo);
@@ -36,11 +37,14 @@ void CargaPilotos::cargarDesdeArchivo(std::string nombre_archivo) {
         piloto.vuelo = item["vuelo"];
         piloto.horas_de_vuelo = item["horas_de_vuelo"];
         piloto.tipo_de_licencia = item["tipo_de_licencia"];
+
+        THash.insertar(piloto);
         arbol_bb.insertar(piloto);
 
         pilotos.push_back(piloto);
     }
     arbol_bb.generarReporte();
+    THash.generarReporte();
 }
 
 void CargaPilotos::OpcionesPilotos() {
@@ -63,7 +67,25 @@ void CargaPilotos::OpcionesPilotos() {
         std::cout << "Tipo de licencia: " << piloto.tipo_de_licencia << std::endl;
         std::cout << "--------------------------------" << std::endl;
     }
-    arbol_bb.imprimirInorden();
+    THash.imprimir();
+}
+
+void CargaPilotos::ArbolPilotos() {
+    arbol_bb.generarReporte();
+}
+
+void CargaPilotos::RPreorden() {
     arbol_bb.imprimirPreorden();
+}
+
+void CargaPilotos::RInorden() {
+    arbol_bb.imprimirInorden();
+}
+
+void CargaPilotos::RPostorden() {
     arbol_bb.imprimirPostorden();
+}
+
+void CargaPilotos::RTablaHash() {
+    THash.generarReporte();
 }

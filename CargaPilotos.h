@@ -26,11 +26,13 @@ public:
     void cargarDesdeArchivo(std::string nombre_archivo);
     void addPiloto(const Piloto& piloto);
     static void OpcionesPilotos();  // Quita el 'static' aquí
+    static void ArbolPilotos();
+    static void RInorden();
+    static void RPreorden();
+    static void RPostorden();
+    static void RTablaHash();
 private:
     MiVector<Piloto> pilotos;
 };
-
-
-
 
 #endif //CARGAPILOTOS_H

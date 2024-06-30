@@ -34,7 +34,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 30,
+				"line" : 32,
 				"parent" : 0
 			}
 		]
@@ -136,7 +136,9 @@
 				9,
 				11,
 				12,
-				13
+				13,
+				14,
+				15
 			]
 		}
 	],
@@ -214,6 +216,16 @@
 		{
 			"backtrace" : 1,
 			"path" : "NodoPiloto.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "THash.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "CargaRutas.h",
 			"sourceGroupIndex" : 1
 		}
 	],
