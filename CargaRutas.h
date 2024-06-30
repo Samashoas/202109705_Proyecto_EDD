@@ -24,6 +24,7 @@ public:
     void cargarDesdeArchivo(std::string nombre_archivo);
     void addRuta(const Ruta& ruta);
     static void OpcionesRutas();
+    static void GrafoDRutas();
 private:
     MiVector<Ruta> rutas;
 };

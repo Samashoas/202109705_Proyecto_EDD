@@ -3,6 +3,9 @@
 //
 
 #include "GrafoDirigido.h"
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
 
 GrafoDirigido::GrafoDirigido() {
 }
@@ -36,4 +39,34 @@ void GrafoDirigido::mostrarGrafo() const {
         }
         std::cout << std::endl;
     }
+}
+
+void GrafoDirigido::generarArchivoDOT(const std::string& nombreDOT) const {
+    std::ofstream archivo(nombreDOT);
+    if (!archivo.is_open()) {
+        std::cerr << "No se pudo abrir el archivo " << nombreDOT << std::endl;
+        return;
+    }
+
+    archivo << "digraph G {\n";
+    archivo << "    rankdir=TB;\n"; // Direccion de izquierda a derecha
+    archivo << "    splines=false;\n"; // Permitir splines
+    archivo << "    overlap=false;\n"; // Evitar sobreposición
+
+    for (const auto& nodo : nodos) {
+        for (const auto& arista : nodo.adyacencias) {
+            archivo << "    \"" << nodo.origen << "\" -> \"" << arista.destino << "\" [label=\"" << arista.distancia << "\"];\n";
+        }
+    }
+    archivo << "}\n";
+
+    archivo.close();
+
+    // Llamar a Graphviz para generar la imagen
+    std::string comando = "dot -Tpng " + nombreDOT + " -o grafo.png";
+    system(comando.c_str());
+
+    system("grafo.png");
+
+    std::cout << "Imagen del grafo generada como grafo.png" << std::endl;
 }

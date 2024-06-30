@@ -34,6 +34,7 @@ public:
 
     void agregarArista(const std::string& origen, const std::string& destino, int distancia);
     void mostrarGrafo() const;
+    void generarArchivoDOT(const std::string& nombreDOT = "grafo.dot") const;
 };
 
 

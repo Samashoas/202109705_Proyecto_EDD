@@ -14,6 +14,7 @@ CargaRutas::CargaRutas() {
 CargaRutas::~CargaRutas() {
 }
 
+GrafoDirigido grafo;
 
 void CargaRutas::cargarDesdeArchivo(std::string nombre_archivo) {
     std::ifstream archivo(nombre_archivo);
@@ -47,7 +48,6 @@ void CargaRutas::OpcionesRutas() {
     std::cin >> nombre_archivo;
 
     CargaRutas instancia;
-    GrafoDirigido grafo;
 
     instancia.cargarDesdeArchivo(nombre_archivo);
 
@@ -66,4 +66,9 @@ void CargaRutas::OpcionesRutas() {
 void CargaRutas::addRuta(const Ruta& ruta) {
     rutas.push_back(ruta);
 }
+
+void CargaRutas::GrafoDRutas() {
+    grafo.generarArchivoDOT();
+}
+
 

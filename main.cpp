@@ -100,6 +100,9 @@ void opcion7() {
             case 4:
                 CargaPilotos::RTablaHash();
             break;
+            case 5:
+                CargaRutas::GrafoDRutas();
+            break;
             case 7:
                 std::cout << "Regresando al menu principal..." << std::endl;
             regresar = true;
