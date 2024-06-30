@@ -14,6 +14,7 @@ CargaRutas::CargaRutas() {
 CargaRutas::~CargaRutas() {
 }
 
+
 void CargaRutas::cargarDesdeArchivo(std::string nombre_archivo) {
     std::ifstream archivo(nombre_archivo);
     if(!archivo.is_open()){
@@ -46,6 +47,8 @@ void CargaRutas::OpcionesRutas() {
     std::cin >> nombre_archivo;
 
     CargaRutas instancia;
+    GrafoDirigido grafo;
+
     instancia.cargarDesdeArchivo(nombre_archivo);
 
     for (size_t i = 0; i < instancia.rutas.get_size(); i++) {
@@ -54,7 +57,10 @@ void CargaRutas::OpcionesRutas() {
         std::cout << "Origen: " << ruta.origen << std::endl;
         std::cout << "Destino: " << ruta.destino << std::endl;
         std::cout << "Distancia: " << ruta.distancia << std::endl;
+        grafo.agregarArista(ruta.origen, ruta.destino, ruta.distancia);
     }
+
+    grafo.mostrarGrafo();
 }
 
 void CargaRutas::addRuta(const Ruta& ruta) {

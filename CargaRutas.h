@@ -6,6 +6,8 @@
 #define CARGARUTAS_H
 #include <string>
 #include "MiVector.h"
+#include "GrafoDirigido.h"
+
 
 struct Ruta {
     std::string origen;

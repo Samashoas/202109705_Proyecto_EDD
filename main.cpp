@@ -3,6 +3,7 @@
 #include "CargaComandos.h"
 #include "CargaPilotos.h"
 #include "CargaRutas.h"
+#include "GrafoDirigido.h"
 using  namespace std;
 
 void opcionABBPilotos() {
