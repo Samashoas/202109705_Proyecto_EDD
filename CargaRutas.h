@@ -25,6 +25,7 @@ public:
     void addRuta(const Ruta& ruta);
     static void OpcionesRutas();
     static void GrafoDRutas();
+    static void Shortcut();
 private:
     MiVector<Ruta> rutas;
 };

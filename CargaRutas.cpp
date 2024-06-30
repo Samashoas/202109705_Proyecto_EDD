@@ -71,4 +71,14 @@ void CargaRutas::GrafoDRutas() {
     grafo.generarArchivoDOT();
 }
 
+void CargaRutas::Shortcut() {
+    std::string origen, destino;
+    std::cout << "Ingrese la ciudad origen: ";
+    std::cin >> origen;
+    std::cout << "Ingrese la ciudad destino: ";
+    std::cin >> destino;
+    grafo.FindShortcut(origen, destino);
+}
+
+
 

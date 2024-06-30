@@ -63,11 +63,11 @@ void opcion4() {
 }
 
 void opcion5() {
-    std::cout << "Opcion 5" << std::endl;
+    opcionABBPilotos();
 }
 
 void opcion6() {
-    std::cout << "Opcion 5" << std::endl;
+    CargaRutas::Shortcut();
 }
 
 void opcion7() {
@@ -95,7 +95,6 @@ void opcion7() {
             break;
             case 3:
                 CargaPilotos::ArbolPilotos();
-                opcionABBPilotos();
             break;
             case 4:
                 CargaPilotos::RTablaHash();

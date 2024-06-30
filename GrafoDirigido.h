@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <limits>
 
 class GrafoDirigido {
 private:
@@ -26,7 +27,7 @@ private:
 
     std::vector<NodoGrafo> nodos;
 
-    NodoGrafo* encontrarNodo(const std::string& origen);
+    NodoGrafo* encontrarNodo(const std::string& origen) const;
 
 public:
     GrafoDirigido();
@@ -35,6 +36,7 @@ public:
     void agregarArista(const std::string& origen, const std::string& destino, int distancia);
     void mostrarGrafo() const;
     void generarArchivoDOT(const std::string& nombreDOT = "grafo.dot") const;
+    void FindShortcut(const std::string& origen, const std::string& destino) const;
 };
 
 
