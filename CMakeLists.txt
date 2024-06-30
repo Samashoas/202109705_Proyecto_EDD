@@ -27,6 +27,7 @@ add_executable(202109705_Proyecto_EDD main.cpp
         arbolBB.h
         NodoPiloto.h
         THash.h
+        CargaRutas.cpp
         CargaRutas.h
 )
 target_link_libraries(202109705_Proyecto_EDD PRIVATE nlohmann_json::nlohmann_json)

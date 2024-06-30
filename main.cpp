@@ -2,6 +2,7 @@
 #include "CargaAviones.h"
 #include "CargaComandos.h"
 #include "CargaPilotos.h"
+#include "CargaRutas.h"
 using  namespace std;
 
 void opcionABBPilotos() {
@@ -52,7 +53,7 @@ void opcion2() {
 }
 
 void opcion3() {
-    std::cout << "Opcion 3" << std::endl;
+    CargaRutas::OpcionesRutas();
 }
 
 void opcion4() {
