@@ -4,38 +4,19 @@
 
 #ifndef THASH_H
 #define THASH_H
-#include "CargaPilotos.h"
-
-class NodoHash {
-public:
-    Piloto piloto;
-    NodoHash* siguiente;
-
-    NodoHash(Piloto p) : piloto(p), siguiente(nullptr) {}
-};
+#include "ListaSimple.h"
 
 class TablaHash {
 private:
     int M;  // tamaño de la tabla
-    NodoHash** tabla;  // array de punteros a nodos
+    ListaSimple* tabla;  // array de listas simples
 
 public:
     TablaHash(int tam) : M(tam) {
-        tabla = new NodoHash*[M];
-        for (int i = 0; i < M; i++) {
-            tabla[i] = nullptr;
-        }
+        tabla = new ListaSimple[M];
     }
 
     ~TablaHash() {
-        for (int i = 0; i < M; i++) {
-            NodoHash* actual = tabla[i];
-            while (actual) {
-                NodoHash* temp = actual;
-                actual = actual->siguiente;
-                delete temp;
-            }
-        }
         delete[] tabla;
     }
 
@@ -49,52 +30,22 @@ public:
 
     void insertar(Piloto p) {
         int indice = funcionHash(p.numero_de_id);
-        NodoHash* nuevo = new NodoHash(p);
-        nuevo->siguiente = tabla[indice];
-        tabla[indice] = nuevo;
+        tabla[indice].insertar(p);
     }
 
     Piloto buscar(std::string llave) {
         int indice = funcionHash(llave);
-        NodoHash* actual = tabla[indice];
-        while (actual) {
-            if (actual->piloto.numero_de_id == llave) {
-                return actual->piloto;
-            }
-            actual = actual->siguiente;
-        }
-        throw std::runtime_error("Piloto no encontrado");
+        return tabla[indice].buscar(llave);
     }
 
     void eliminar(std::string llave) {
         int indice = funcionHash(llave);
-        NodoHash* actual = tabla[indice];
-        NodoHash* previo = nullptr;
-        while (actual) {
-            if (actual->piloto.numero_de_id == llave) {
-                if (previo) {
-                    previo->siguiente = actual->siguiente;
-                } else {
-                    tabla[indice] = actual->siguiente;
-                }
-                delete actual;
-                return;
-            }
-            previo = actual;
-            actual = actual->siguiente;
-        }
-        throw std::runtime_error("Piloto no encontrado");
+        tabla[indice].eliminar(llave);
     }
 
     void imprimir() {
         for (int i = 0; i < M; i++) {
-            NodoHash* actual = tabla[i];
-            while (actual) {
-                std::cout << "Indice: " << i << std::endl;
-                std::cout << "Numero de ID: " << actual->piloto.numero_de_id << std::endl;
-                std::cout << "------------------------" << std::endl;
-                actual = actual->siguiente;
-            }
+            tabla[i].imprimir(i);
         }
     }
 
@@ -115,19 +66,7 @@ public:
 
         // Crear los nodos para los pilotos y las conexiones
         for (int i = 0; i < M; i++) {
-            NodoHash* actual = tabla[i];
-            if (actual) {
-                int nodo_id = 0;
-                std::string prev_node = "index" + std::to_string(i);
-                while (actual) {
-                    std::string current_node = "nodo" + std::to_string(i) + "_" + std::to_string(nodo_id);
-                    archivo << current_node << " [label=\"{" << actual->piloto.numero_de_id << "}\", shape=record, style=filled, fillcolor=lightblue];\n";
-                    archivo << prev_node << " -> " << current_node << ";\n";
-                    prev_node = current_node;
-                    actual = actual->siguiente;
-                    nodo_id++;
-                }
-            }
+            tabla[i].generarReporte(archivo, i);
         }
 
         archivo << "}\n";

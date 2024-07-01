@@ -137,7 +137,7 @@ void ListaCircularMan::visualizarLista()
         do
         {
             nodoDato = actual->getDato();
-            std::cout << nodoDato.vuelo << std::endl; // Imprime el número de vuelo
+            std::cout << nodoDato.numero_de_registro << std::endl; // Imprime el número de vuelo
             actual = actual->getSiguiente();
         } while (actual != primero);
     }

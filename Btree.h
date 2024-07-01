@@ -44,6 +44,7 @@ public:
     void generateGraphviz(std::ostream& out) const {
         out << "digraph G {\n";
         out << "node [shape=record];\n";
+        out << "rank=same;\n";
         int index = 0;
         if (root != nullptr) root->generateGraphviz(out, index);
         out << "}\n";
@@ -167,7 +168,7 @@ void BTreeNode::splitChild(int i, BTreeNode* y, int t) {
     children.insert(children.begin() + i + 1, z);
     keys.insert(keys.begin() + i, y->keys[t - 1]);
 
-    y->keys.resize(t - 1);
+    //y->keys.resize(t - 1);
 }
 
 void BTreeNode::generateGraphviz(std::ostream& out, int& index) const {
@@ -180,10 +181,16 @@ void BTreeNode::generateGraphviz(std::ostream& out, int& index) const {
     out << "\"];\n";
 
     for (int i = 0; i < children.size(); ++i) {
+        int child_index = index;
         if (!isLeaf) {
-            int child_index = index;
-            children[i]->generateGraphviz(out, index);
-            out << "node" << current_index << ":f" << i << " -> node" << child_index << ";\n";
+            children[i]->generateGraphviz(out, index);  // Mover la generación del hijo antes de la conexión
+            //int key_index = i;
+            //if( key_index < keys.size() ) {
+               // out << "node" << current_index << ":f" << key_index << " -> node" << child_index << ";\n";
+            //}else {
+                //out << "node" << current_index << ":f" << (keys.size() - 1) << " -> node" << child_index << ";\n";
+            //}
+            out << "node" << current_index <<" -> node" << child_index << ";\n";
         }
     }
 }

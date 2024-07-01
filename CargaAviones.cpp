@@ -39,6 +39,7 @@ void CargaAviones::cargarDesdeArchivo(std::string nombre_archivo) {
 
         if(avion.estado == "Disponible") {
             Arbol_Aviones.insert(avion);
+            Arbol_Aviones.traverse();
             std::cout << " " << std::endl;
             std::cout << "Avion disponible insertado" << std::endl;
         }else if(avion.estado == "Mantenimiento") {

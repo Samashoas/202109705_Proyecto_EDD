@@ -147,13 +147,14 @@ void Matriz::generarArchivoDOT(const string& nombreArchivo) const {
 
     archivo << "digraph G {" << endl;
     archivo << "node [shape=record];" << endl;
+    archivo << "rank=same;" << endl;
 
     // Generar nodos para todas las filas y columnas
     NodoMatrix* aux = root;
     while (aux != nullptr) {
         NodoMatrix* auxFila = aux;
         while (auxFila != nullptr) {
-            archivo << "nodo" << auxFila << "[label=\"{" << auxFila->getColumna() << "," << auxFila->getFila() << "|" << auxFila->getDato() << "}\"];" << endl;
+            archivo << "nodo" << auxFila << "[label=\"{" << auxFila->getColumna() << "," << auxFila->getFila() << "|" << auxFila->getDato() << "},group=\"];" << endl;
             auxFila = auxFila->getSiguiente();
         }
         aux = aux->getAbajo();
