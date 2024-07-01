@@ -21,9 +21,9 @@ public:
     }
 
     int funcionHash(std::string llave) {
-        int suma = 0;
-        for (char c : llave) {
-            suma += c;
+        int suma = static_cast<int>(llave[0]);
+        for (size_t i = 1; i < llave.length(); ++i) {
+            suma += (llave[i] - '0');
         }
         return suma % M;
     }
