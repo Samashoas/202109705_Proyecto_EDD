@@ -3,7 +3,7 @@
 #include "CargaComandos.h"
 #include "CargaPilotos.h"
 #include "CargaRutas.h"
-#include "GrafoDirigido.h"
+#include "MatrizDisp.h"
 using  namespace std;
 
 void opcionABBPilotos() {
@@ -43,6 +43,17 @@ void opcionABBPilotos() {
             std::cin.get();
         }
     }
+}
+
+void MatrizData() {
+    Matriz miMatriz;
+    miMatriz.insertar("dato1", 0, 0);
+    miMatriz.insertar("dato2", 1, 2);
+    miMatriz.insertar("dato3", 3, 1);
+    miMatriz.insertar("dato4", 4, 3);
+
+    miMatriz.generarArchivoDOT("matriz.dot");
+    std::cout << "Generando archivo DOT..." << std::endl;
 }
 
 void opcion1() {
@@ -101,6 +112,9 @@ void opcion7() {
             break;
             case 5:
                 CargaRutas::GrafoDRutas();
+            break;
+            case 6:
+                MatrizData();
             break;
             case 7:
                 std::cout << "Regresando al menu principal..." << std::endl;

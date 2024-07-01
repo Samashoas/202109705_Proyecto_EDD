@@ -1,0 +1,37 @@
+digraph G {
+node [shape=record];
+nodo0x1de61411ba0[label="{-1,-1|Root}"];
+nodo0x1de61415e80[label="{0,-1|Columna}"];
+nodo0x1de61415f70[label="{2,-1|Columna}"];
+nodo0x1de61416060[label="{1,-1|Columna}"];
+nodo0x1de61416150[label="{3,-1|Columna}"];
+nodo0x1de61415e30[label="{-1,0|Fila}"];
+nodo0x1de61415de0[label="{0,0|dato1}"];
+nodo0x1de61415f20[label="{-1,1|Fila}"];
+nodo0x1de61415ed0[label="{2,1|dato2}"];
+nodo0x1de61416010[label="{-1,3|Fila}"];
+nodo0x1de61415fc0[label="{1,3|dato3}"];
+nodo0x1de61416100[label="{-1,4|Fila}"];
+nodo0x1de614160b0[label="{3,4|dato4}"];
+nodo0x1de61411ba0 -> nodo0x1de61415e80;
+nodo0x1de61411ba0 -> nodo0x1de61415e30;
+nodo0x1de61415e80 -> nodo0x1de61415f70;
+nodo0x1de61415e80 -> nodo0x1de61415de0;
+nodo0x1de61415f70 -> nodo0x1de61416060;
+nodo0x1de61415f70 -> nodo0x1de61415ed0;
+nodo0x1de61416060 -> nodo0x1de61416150;
+nodo0x1de61416060 -> nodo0x1de61415fc0;
+nodo0x1de61416150 -> nodo0x1de614160b0;
+nodo0x1de61415e30 -> nodo0x1de61415de0;
+nodo0x1de61415e30 -> nodo0x1de61415f20;
+nodo0x1de61415f20 -> nodo0x1de61415ed0;
+nodo0x1de61415f20 -> nodo0x1de61416010;
+nodo0x1de61416010 -> nodo0x1de61415fc0;
+nodo0x1de61416010 -> nodo0x1de61416100;
+nodo0x1de61416100 -> nodo0x1de614160b0;
+subgraph cluster_-1 { style=invis; nodo0x1de61411ba0; nodo0x1de61415e80; nodo0x1de61415f70; nodo0x1de61416060; nodo0x1de61416150; }
+subgraph cluster_0 { style=invis; nodo0x1de61415e30; nodo0x1de61415de0; }
+subgraph cluster_1 { style=invis; nodo0x1de61415f20; nodo0x1de61415ed0; }
+subgraph cluster_3 { style=invis; nodo0x1de61416010; nodo0x1de61415fc0; }
+subgraph cluster_4 { style=invis; nodo0x1de61416100; nodo0x1de614160b0; }
+}

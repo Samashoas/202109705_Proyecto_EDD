@@ -31,5 +31,7 @@ add_executable(202109705_Proyecto_EDD main.cpp
         CargaRutas.h
         GrafoDirigido.cpp
         GrafoDirigido.h
+        NodoMatriz.h
+        MatrizDisp.h
 )
 target_link_libraries(202109705_Proyecto_EDD PRIVATE nlohmann_json::nlohmann_json)
