@@ -69,8 +69,11 @@ void opcion3() {
 }
 
 void opcion4() {
-    CargaComandos comandos;
-    comandos.LeerComandos();
+    CargaComandos carga_comandos;
+    std::string nombreArchivoComandos;
+    std::cout << "Ingrese el nombre del archivo de comandos: ";
+    std::cin >> nombreArchivoComandos;
+    carga_comandos.cargarComandos(nombreArchivoComandos);
 }
 
 void opcion5() {

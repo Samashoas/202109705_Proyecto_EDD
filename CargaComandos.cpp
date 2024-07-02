@@ -1,24 +1,42 @@
-//
-// Created by jpsam on 13/06/2024.
-//
-
 #include "CargaComandos.h"
-#include <fstream>
-#include <iostream>
 
-void CargaComandos::LeerComandos() {
-    std::string nombre_archivo;
-    std::cout << "Ingrese el nombre del archivo: ";
-    std::cin >> nombre_archivo;
 
-    std::ifstream archivo(nombre_archivo);
-    if(!archivo.is_open()){
-        std::cout << "No se pudo abrir el archivo" << std::endl;
+extern TablaHash THash;
+//extern ArbolBB arbol_bb;
+
+CargaComandos::CargaComandos() {
+    // Constructor
+}
+
+CargaComandos::~CargaComandos() {
+    // Destructor
+}
+
+void CargaComandos::cargarComandos(const std::string& nombreArchivo) {
+    std::ifstream file(nombreArchivo); // Aquí se usa el parámetro proporcionado
+    std::string linea;
+
+    if (!file.is_open()) {
+        std::cerr << "No se pudo abrir el archivo\n";
         return;
     }
 
-    std::string linea;
-    while (std::getline(archivo, linea)) {
-        std::cout << linea << std::endl;
+    while (getline(file, linea)) {
+        std::stringstream ss(linea);
+        std::string comando;
+        getline(ss, comando, '(');
+
+        // Imprimir el comando que se está procesando
+        std::cout << "Procesando comando: " << linea << std::endl;
+
+        if (comando == "DarDeBaja") {
+            std::string numero_de_id;
+            getline(ss, numero_de_id, ')');
+            THash.eliminar(numero_de_id);
+            //arbol_bb.eliminar(numero_de_id);
+        }
+        // Agrega aquí otros comandos según sea necesario
     }
+
+    file.close();
 }

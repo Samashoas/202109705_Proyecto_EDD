@@ -4,6 +4,10 @@
 
 #ifndef LISTASIMPLE_H
 #define LISTASIMPLE_H
+
+#include <iostream>
+#include <fstream>
+
 #include "NodoListaSimple.h"
 
 class ListaSimple {
@@ -39,23 +43,24 @@ public:
         throw std::runtime_error("Piloto no encontrado");
     }
 
-    void eliminar(std::string llave) {
+    void eliminar(std::string numero_de_id) {
         NodoLista* actual = cabeza;
-        NodoLista* previo = nullptr;
-        while (actual) {
-            if (actual->piloto.numero_de_id == llave) {
-                if (previo) {
-                    previo->siguiente = actual->siguiente;
-                } else {
-                    cabeza = actual->siguiente;
-                }
-                delete actual;
-                return;
-            }
-            previo = actual;
+        NodoLista* anterior = nullptr;
+
+        while (actual != nullptr && actual->piloto.numero_de_id != numero_de_id) {
+            anterior = actual;
             actual = actual->siguiente;
         }
-        throw std::runtime_error("Piloto no encontrado");
+
+        if (actual == nullptr) return;
+
+        if (anterior == nullptr) {
+            cabeza = actual->siguiente;
+        } else {
+            anterior->siguiente = actual->siguiente;
+        }
+
+        delete actual;
     }
 
     void imprimir(int indice) {

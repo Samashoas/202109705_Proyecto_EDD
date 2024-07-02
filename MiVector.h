@@ -32,10 +32,10 @@ public:
         return size;
     }
 
+    size_t size;
+    size_t capacidad;
 
 private:
-    size_t capacidad;
-    size_t size;
     MyArray<T> data;
 };
 
