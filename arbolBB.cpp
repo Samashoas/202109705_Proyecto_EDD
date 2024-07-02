@@ -165,6 +165,8 @@ void ArbolBB::generarReporte() {
     if (ArbolBB::estaVacio()) {} else {
         archivo.open("grafica_arbol.dot", std::ios::out);
         archivo << "digraph G { " << std::endl;
+        archivo << "labelloc=\"t\";" << std::endl; // Posiciona la etiqueta en la parte superior
+        archivo << "label=\"Arbol BB Pilotos\";" << std::endl; // Define la etiqueta (título)
 
         imprimirNodo(raiz);
 

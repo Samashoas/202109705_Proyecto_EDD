@@ -1,4 +1,6 @@
 digraph G {
+labelloc="t";
+label="Grafo Dirigido Rutas";
     "Córdoba" -> "Bilbao" [label="22"];
     "Murcia" -> "Madrid" [label="40"];
     "Murcia" -> "Girona" [label="19"];

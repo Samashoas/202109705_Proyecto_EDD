@@ -152,6 +152,8 @@ void ListaCircularMan::generarReporte(){
         std::ofstream archivo;
         archivo.open("grafica_LC_Mantenimiento.dot", std::ios::out);
         archivo << "digraph G { rankdir=LR; node [shape=oval];" << std::endl;
+        archivo << "labelloc=\"t\";\n"; // Posiciona la etiqueta en la parte superior
+        archivo << "label=\"Circular Doble Registro Aviones-Mantenimiento\";\n"; // Define la etiqueta (título)
 
         Avion nodoDato;
         Nodo *actual = primero;

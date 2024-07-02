@@ -57,11 +57,13 @@ public:
 
         archivo << "digraph G {\n";
         archivo << "rankdir=LR;\n";  // Cambia la dirección del grafo de izquierda a derecha
+        archivo << "labelloc=\"t\";\n"; // Posiciona la etiqueta en la parte superior
+        archivo << "label=\"Tabla Hash Pilotos\";\n"; // Define la etiqueta (título)
         archivo << "node [shape=record];\n";
 
         // Crear los nodos para los índices de la tabla
         for (int i = 0; i < M; i++) {
-            archivo << "index" << i << " [label=\"" << i << "\", shape=box, style=filled, fillcolor=orange];\n";
+            archivo << "index" << i << " [label=\"" << i << "\", shape=box, style=filled];\n"; // Se eliminó fillcolor=orange
         }
 
         // Crear los nodos para los pilotos y las conexiones

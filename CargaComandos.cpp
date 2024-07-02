@@ -34,6 +34,8 @@ void CargaComandos::cargarComandos(const std::string& nombreArchivo) {
             getline(ss, numero_de_id, ')');
             THash.eliminar(numero_de_id);
             arbol_bb.eliminarPorId(numero_de_id);
+        }else {
+            std::cout << "Comando no reconocido\n";
         }
         // Agrega aquí otros comandos según sea necesario
     }

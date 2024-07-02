@@ -79,7 +79,7 @@ public:
         std::string prev_node = "index" + std::to_string(indice);
         while (actual) {
             std::string current_node = "nodo" + std::to_string(indice) + "_" + std::to_string(nodo_id);
-            archivo << current_node << " [label=\"{" << actual->piloto.numero_de_id << "}\", shape=record, style=filled, fillcolor=lightblue];\n";
+            archivo << current_node << " [label=\"{" << actual->piloto.numero_de_id << "}\", shape=record, style=filled];\n";
             archivo << prev_node << " -> " << current_node << ";\n";
             prev_node = current_node;
             actual = actual->siguiente;

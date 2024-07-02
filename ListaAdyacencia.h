@@ -6,6 +6,8 @@
 #define LISTAADYACENCIA_H
 #include <string>
 
+#include <string>
+
 struct NodoAdyacencia {
     std::string destino;
     int distancia;

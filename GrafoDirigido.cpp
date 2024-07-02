@@ -44,6 +44,14 @@ void GrafoDirigido::agregarArista(const std::string& origen, const std::string& 
     NodoAdyacencia* nuevaAdyacencia = new NodoAdyacencia(destino, distancia);
     nuevaAdyacencia->siguiente = nodoOrigen->adyacencias;
     nodoOrigen->adyacencias = nuevaAdyacencia;
+
+    // También necesitamos asegurarnos de que el nodo destino esté en el grafo
+    NodoGrafo* nodoDestino = encontrarNodo(destino);
+    if (nodoDestino == nullptr) {
+        nodoDestino = new NodoGrafo(destino);
+        nodoDestino->siguiente = nodos;
+        nodos = nodoDestino;
+    }
 }
 
 void GrafoDirigido::mostrarGrafo() const {
@@ -67,6 +75,8 @@ void GrafoDirigido::generarArchivoDOT(const std::string& nombreDOT) const {
     }
 
     archivo << "digraph G {\n";
+    archivo << "labelloc=\"t\";\n"; // Posiciona la etiqueta en la parte superior
+    archivo << "label=\"Grafo Dirigido Rutas\";\n"; // Define la etiqueta (título)
     NodoGrafo* actual = nodos;
     while (actual != nullptr) {
         NodoAdyacencia* actualAdyacencia = actual->adyacencias;

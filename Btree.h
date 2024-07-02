@@ -45,6 +45,8 @@ public:
         out << "digraph G {\n";
         out << "node [shape=record];\n";
         out << "rank=same;\n";
+        out << "labelloc=\"t\";\n"; // Posiciona la etiqueta en la parte superior
+        out << "label=\"Arbol B(5) Aviones-Numero de registro-Disponibles\";\n"; // Define la etiqueta (título)
         int index = 0;
         if (root != nullptr) root->generateGraphviz(out, index);
         out << "}\n";
@@ -184,12 +186,12 @@ void BTreeNode::generateGraphviz(std::ostream& out, int& index) const {
         int child_index = index;
         if (!isLeaf) {
             children[i]->generateGraphviz(out, index);  // Mover la generación del hijo antes de la conexión
-            //int key_index = i;
+            /*int key_index = i;
             //if( key_index < keys.size() ) {
                // out << "node" << current_index << ":f" << key_index << " -> node" << child_index << ";\n";
             //}else {
                 //out << "node" << current_index << ":f" << (keys.size() - 1) << " -> node" << child_index << ";\n";
-            //}
+            //}*/
             out << "node" << current_index <<" -> node" << child_index << ";\n";
         }
     }
