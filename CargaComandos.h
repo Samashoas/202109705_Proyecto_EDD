@@ -5,7 +5,6 @@
 #include <fstream>
 #include <sstream>
 #include "THash.h"
-//#include "arbolBB.h"
 
 class CargaComandos {
 public:

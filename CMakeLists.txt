@@ -35,5 +35,7 @@ add_executable(202109705_Proyecto_EDD main.cpp
         MatrizDisp.h
         NodoListaSimple.h
         ListaSimple.h
+        NodoPiloto.cpp
+        arbolBB.cpp
 )
 target_link_libraries(202109705_Proyecto_EDD PRIVATE nlohmann_json::nlohmann_json)

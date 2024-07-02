@@ -1,8 +1,8 @@
 #include "CargaComandos.h"
-
+#include "ArbolBB.h" // Incluye aquí ArbolBB.h
 
 extern TablaHash THash;
-//extern ArbolBB arbol_bb;
+extern ArbolBB arbol_bb;
 
 CargaComandos::CargaComandos() {
     // Constructor
@@ -13,7 +13,7 @@ CargaComandos::~CargaComandos() {
 }
 
 void CargaComandos::cargarComandos(const std::string& nombreArchivo) {
-    std::ifstream file(nombreArchivo); // Aquí se usa el parámetro proporcionado
+    std::ifstream file(nombreArchivo);
     std::string linea;
 
     if (!file.is_open()) {
@@ -33,7 +33,7 @@ void CargaComandos::cargarComandos(const std::string& nombreArchivo) {
             std::string numero_de_id;
             getline(ss, numero_de_id, ')');
             THash.eliminar(numero_de_id);
-            //arbol_bb.eliminar(numero_de_id);
+            arbol_bb.eliminarPorId(numero_de_id);
         }
         // Agrega aquí otros comandos según sea necesario
     }
