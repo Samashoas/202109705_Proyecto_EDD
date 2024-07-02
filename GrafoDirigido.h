@@ -1,34 +1,19 @@
-//
-// Created by jpsam on 30/06/2024.
-//
-
 #ifndef GRAFODIRIGIDO_H
 #define GRAFODIRIGIDO_H
-#include <vector>
+
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <limits>
-
+#include "ListaAdyacencia.h"
+#include <vector>  // Necesario para el algoritmo de Dijkstra
 
 class GrafoDirigido {
 private:
-    struct Arista {
-        std::string destino;
-        int distancia;
-
-        Arista(const std::string& dest, int dist) : destino(dest), distancia(dist) {}
-    };
-
-    struct NodoGrafo {
-        std::string origen;
-        std::vector<Arista> adyacencias;
-
-        NodoGrafo(const std::string& orig) : origen(orig) {}
-    };
-
-    std::vector<NodoGrafo> nodos;
+    NodoGrafo* nodos;
 
     NodoGrafo* encontrarNodo(const std::string& origen) const;
+    NodoGrafo* encontrarNodoOCrear(const std::string& origen);
 
 public:
     GrafoDirigido();
@@ -38,8 +23,7 @@ public:
     void mostrarGrafo() const;
     void generarArchivoDOT(const std::string& nombreDOT = "grafo.dot") const;
     void FindShortcut(const std::string& origen, const std::string& destino) const;
+    void eliminarNodosYAdyacencias(NodoGrafo* nodo);
 };
 
-
-
-#endif //GRAFODIRIGIDO_H
+#endif // GRAFODIRIGIDO_H

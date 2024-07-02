@@ -1,43 +1,61 @@
-//
-// Created by jpsam on 30/06/2024.
-//
-
 #include "GrafoDirigido.h"
-#include <iostream>
-#include <fstream>
-#include <cstdlib>
+#include <limits>
 
-GrafoDirigido::GrafoDirigido() {
-}
+GrafoDirigido::GrafoDirigido() : nodos(nullptr) {}
 
 GrafoDirigido::~GrafoDirigido() {
+    NodoGrafo* actual = nodos;
+    while (actual != nullptr) {
+        NodoGrafo* siguienteNodo = actual->siguiente;
+        eliminarNodosYAdyacencias(actual);
+        actual = siguienteNodo;
+    }
 }
 
-GrafoDirigido::NodoGrafo* GrafoDirigido::encontrarNodo(const std::string& origen)const {
-    for (size_t i = 0; i < nodos.size(); ++i) {
-        if (nodos[i].origen == origen) {
-            return const_cast<NodoGrafo*>(&nodos[i]);
+void GrafoDirigido::eliminarNodosYAdyacencias(NodoGrafo* nodo) {
+    NodoAdyacencia* actualAdyacencia = nodo->adyacencias;
+    while (actualAdyacencia != nullptr) {
+        NodoAdyacencia* siguienteAdyacencia = actualAdyacencia->siguiente;
+        delete actualAdyacencia;
+        actualAdyacencia = siguienteAdyacencia;
+    }
+    delete nodo;
+}
+
+NodoGrafo* GrafoDirigido::encontrarNodo(const std::string& origen) const {
+    NodoGrafo* actual = nodos;
+    while (actual != nullptr) {
+        if (actual->origen == origen) {
+            return actual;
         }
+        actual = actual->siguiente;
     }
     return nullptr;
 }
 
 void GrafoDirigido::agregarArista(const std::string& origen, const std::string& destino, int distancia) {
-    NodoGrafo* nodo = encontrarNodo(origen);
-    if (!nodo) {
-        nodos.emplace_back(origen);
-        nodo = &nodos.back();
+    NodoGrafo* nodoOrigen = encontrarNodo(origen);
+    if (nodoOrigen == nullptr) {
+        nodoOrigen = new NodoGrafo(origen);
+        nodoOrigen->siguiente = nodos;
+        nodos = nodoOrigen;
     }
-    nodo->adyacencias.emplace_back(destino, distancia);
+
+    NodoAdyacencia* nuevaAdyacencia = new NodoAdyacencia(destino, distancia);
+    nuevaAdyacencia->siguiente = nodoOrigen->adyacencias;
+    nodoOrigen->adyacencias = nuevaAdyacencia;
 }
 
 void GrafoDirigido::mostrarGrafo() const {
-    for (const auto& nodo : nodos) {
-        std::cout << nodo.origen << " -> ";
-        for (const auto& arista : nodo.adyacencias) {
-            std::cout << "(" << arista.destino << ", " << arista.distancia << ") ";
+    NodoGrafo* actual = nodos;
+    while (actual != nullptr) {
+        std::cout << "Origen: " << actual->origen << std::endl;
+        NodoAdyacencia* actualAdyacencia = actual->adyacencias;
+        while (actualAdyacencia != nullptr) {
+            std::cout << "  -> " << actualAdyacencia->destino << " (Distancia: " << actualAdyacencia->distancia << ")" << std::endl;
+            actualAdyacencia = actualAdyacencia->siguiente;
         }
-        std::cout << std::endl;
+        actual = actual->siguiente;
     }
 }
 
@@ -49,26 +67,22 @@ void GrafoDirigido::generarArchivoDOT(const std::string& nombreDOT) const {
     }
 
     archivo << "digraph G {\n";
-    archivo << "    rankdir=TB;\n"; // Direccion de izquierda a derecha
-    archivo << "    splines=false;\n"; // Permitir splines
-    archivo << "    overlap=false;\n"; // Evitar sobreposición
-
-    for (const auto& nodo : nodos) {
-        for (const auto& arista : nodo.adyacencias) {
-            archivo << "    \"" << nodo.origen << "\" -> \"" << arista.destino << "\" [label=\"" << arista.distancia << "\"];\n";
+    NodoGrafo* actual = nodos;
+    while (actual != nullptr) {
+        NodoAdyacencia* actualAdyacencia = actual->adyacencias;
+        while (actualAdyacencia != nullptr) {
+            archivo << "    \"" << actual->origen << "\" -> \"" << actualAdyacencia->destino << "\" [label=\"" << actualAdyacencia->distancia << "\"];\n";
+            actualAdyacencia = actualAdyacencia->siguiente;
         }
+        actual = actual->siguiente;
     }
     archivo << "}\n";
-
     archivo.close();
 
     // Llamar a Graphviz para generar la imagen
     std::string comando = "dot -Tpng " + nombreDOT + " -o grafo.png";
     system(comando.c_str());
-
-    system("grafo.png");
-
-    std::cout << "Imagen del grafo generada como grafo.png" << std::endl;
+    system("start grafo.png");
 }
 
 void GrafoDirigido::FindShortcut(const std::string& origen, const std::string& destino) const {
@@ -78,11 +92,13 @@ void GrafoDirigido::FindShortcut(const std::string& origen, const std::string& d
     std::vector<std::string> anteriores;
     std::vector<bool> visitados;
 
-    for (const auto& nodo : nodos) {
-        vertices.push_back(nodo.origen);
+    NodoGrafo* actual = nodos;
+    while (actual != nullptr) {
+        vertices.push_back(actual->origen);
         distancias.push_back(std::numeric_limits<int>::max());
         anteriores.push_back("");
         visitados.push_back(false);
+        actual = actual->siguiente;
     }
 
     int idxOrigen = -1;
@@ -118,19 +134,21 @@ void GrafoDirigido::FindShortcut(const std::string& origen, const std::string& d
         // Actualiza las distancias de los vértices adyacentes
         NodoGrafo* nodo = encontrarNodo(vertices[u]);
         if (nodo) {
-            for (const auto& arista : nodo->adyacencias) {
+            NodoAdyacencia* adyacente = nodo->adyacencias;
+            while (adyacente != nullptr) {
                 int v = -1;
                 for (size_t i = 0; i < vertices.size(); ++i) {
-                    if (vertices[i] == arista.destino) {
+                    if (vertices[i] == adyacente->destino) {
                         v = i;
                         break;
                     }
                 }
 
-                if (v != -1 && !visitados[v] && distancias[u] + arista.distancia < distancias[v]) {
-                    distancias[v] = distancias[u] + arista.distancia;
+                if (v != -1 && !visitados[v] && distancias[u] + adyacente->distancia < distancias[v]) {
+                    distancias[v] = distancias[u] + adyacente->distancia;
                     anteriores[v] = vertices[u];
                 }
+                adyacente = adyacente->siguiente;
             }
         }
     }
